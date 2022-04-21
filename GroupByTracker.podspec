@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
     s.name             = 'GroupByTracker'
     s.version          = '0.1.0'
     s.summary          = 'GroupBy Tracker Client for iOS'
-    s.homepage         = 'https://github.com/tomshli/gb-tracker-client-for-ios'
+    s.homepage         = 'https://github.com/groupby/gb-ios-tracker-client.git'
     s.license          = { :type => 'MIT', :file => 'LICENSE.md' }
     s.author           = { 'GroupBy Inc.' => 'support@groupbyinc.com' }
     s.source           = { :git => 'https://github.com/groupby/gb-ios-tracker-client.git', :tag => s.version.to_s }
