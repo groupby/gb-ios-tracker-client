@@ -6,9 +6,21 @@ This is the iOS SDK used to send beacons to GroupBy.
 
 1. From the Xcode menu click File > Swift Packages > Add Package Dependency.
 
-2. In the dialog that appears, enter the repository URL: TBD
+2. In the dialog that appears, enter the repository URL: https://github.com/groupby/gb-ios-tracker-client
 
 3. In Version, select Up to Next Major and take the default option.
+
+## Add package using CocoaPods
+
+1. Follow instructions here for setting up CocoaPods for the project, if not set up already: https://guides.cocoapods.org/using/using-cocoapods.html
+
+2. Add the dependency to your pod file
+
+```ruby
+  pod 'GroupByTracker', '~> 0.1.1'
+```
+
+3. Run `pod install`
 
 ## Usage
 
