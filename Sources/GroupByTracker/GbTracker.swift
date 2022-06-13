@@ -24,7 +24,7 @@ public class GbTracker {
             gbAPI.basePath = self.urlPrefixOverride!
         }
         
-        self.customer = Customer(area: self.customerId, id: self.area)
+        self.customer = Customer(area: self.area, id: self.customerId)
         self.nativeAppClient = NativeAppClient(appId: Bundle.main.bundleIdentifier ?? "", lang: Locale.preferredLanguages[0], model: UIDevice.current.modelName, platform: Platform.ios)
         
         var uuid = ""
