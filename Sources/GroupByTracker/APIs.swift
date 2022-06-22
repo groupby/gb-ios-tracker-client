@@ -7,7 +7,7 @@ import Foundation
 typealias gb = gbAPI
 
 class gbAPI {
-    public static var basePath = "https://%s.groupbycloud.com/api/beacons/v3/native-app/from-client"
+    public static var basePath = "https://%@.groupbycloud.com/api/beacons/v3/native-app/from-client"
     public static var customHeaders: [String: String] = [:]
     public static var credential: URLCredential?
     public static var requestBuilderFactory: RequestBuilderFactory = URLSessionRequestBuilderFactory()
