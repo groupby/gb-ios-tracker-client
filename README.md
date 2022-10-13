@@ -17,7 +17,7 @@ This is the iOS SDK used to send beacons to GroupBy.
 2. Add the dependency to your pod file
 
 ```ruby
-  pod 'GroupByTracker', '~> 0.1.1'
+  pod 'GroupByTracker', '~> 1.0.1'
 ```
 
 3. Run `pod install`
