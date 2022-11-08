@@ -57,7 +57,7 @@ let event = AutoSearchEvent(origin: Origin.search, searchID: results.searchId)
 let beacon = AutoSearchBeacon(event: event, experiments: nil, metadata: nil)
 
 // Use tracker instance to send beacon
-tracker.sendAutoSearchEvent(addToCartBeacon: atcBeacon) { error in
+tracker.sendAutoSearchEvent(autoSearchBeacon: beacon) { error in
     guard error == nil else {
         var msg = "Failed to send beacon: " + (error?.localizedDescription ?? "")
         guard let gbError = error as? GbError else {
