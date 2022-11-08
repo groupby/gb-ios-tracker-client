@@ -6,8 +6,8 @@ For sending details of which products (or SKUs within products) the shopper is v
 
 ```swift
 // Create instance of tracker
-let customerId = "<your-customer-id>";
-let area = "<your-area>";
+let customerId = "<your-customer-id>"
+let area = "<your-area>"
 // Represents a shopper who is not logged in
 let login = Login(loggedIn: false, username: nil)
 let tracker = GbTracker(customerId: customerId, area: area, login: login)
@@ -21,8 +21,7 @@ let price = Price(actual: "12.34", currency: "usd", onSale: true, regular: "23.4
 let product = Product(category: "abc123", collection: "abc123", id: "abc123", price: price, sku: "abc123", title: "abc123")
 
 // Prepare list of products for event
-var products: [Product] = []
-products.append(product)
+var products = [product]
 
 // Prepare event for beacon
 let event = RecImpressionEvent(products: products, googleAttributionToken: "abc123")

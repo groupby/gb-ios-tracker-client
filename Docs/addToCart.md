@@ -8,8 +8,8 @@ You must only include the products or SKUs that the shopper is adding to their c
 
 ```swift
 // Create instance of tracker
-let customerId = "<your-customer-id>";
-let area = "<your-area>";
+let customerId = "<your-customer-id>"
+let area = "<your-area>"
 // Represents a shopper who is not logged in
 let login = Login(loggedIn: false, username: nil)
 let tracker = GbTracker(customerId: customerId, area: area, login: login)
