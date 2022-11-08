@@ -24,7 +24,7 @@ let product = Product(category: "abc123", collection: "abc123", id: "abc123", pr
 let item = CartItem(product: product, quantity: 1)
 
 // Prepare list of cart items for cart
-let items = [item];
+let items = [item]
 
 // Prepare cart for event
 let cart = Cart(items: items, type: "abc123")
