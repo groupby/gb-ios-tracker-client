@@ -42,7 +42,7 @@ Example:
 import GroupByTracker
 
 // login status for a shopper who is not logged in
-let login = Login(loggedIn: false,username: nil)
+let login = Login(loggedIn: false, username: nil)
 let instance = GbTracker(customerId: "my-customer-id", area: "my-area", login: login)
 ```
 
@@ -159,6 +159,6 @@ By default, beacons will be send to the production environment. This can be over
 import GroupByTracker
 
 // Optional, overrides the URL the beacon is sent to. Useful for testing.
-let login = Login(loggedIn: false,username: nil)
-let instance = GbTracker(customerId: "my-customer-id", area: "my-area", login: login, urlPrefixOverride: "<some_url>")
+let login = Login(loggedIn: false, username: nil)
+let instance = GbTracker(customerId: "customer_id", area: "area", login: login, urlPrefixOverride: "<some_url>")
 ```
