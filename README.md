@@ -46,7 +46,7 @@ let login = Login(loggedIn: false, username: nil)
 let instance = GbTracker(customerId: "my-customer-id", area: "my-area", login: login)
 ```
 
-See [Creating the tracker instance](docs/creating_the_tracker_instance.md) for more details.
+See [Creating the tracker instance](Docs/creating_the_tracker_instance.md) for more details.
 
 ## Sending events
 
@@ -54,7 +54,7 @@ You must program your app so that the `sendXEvent` methods (where "X" is the nam
 
 An example of a method you can call to send an event is the `sendViewProductEvent` method.
 
-See [Sending events](docs/sending_events.md) for more details.
+See [Sending events](Docs/sending_events.md) for more details.
 
 ## Setting login status
 
@@ -62,7 +62,7 @@ Login status describes whether the shopper is logged in or not when the event oc
 
 You can set the login status as you create the tracker instance and by mutating an existing tracker instance throughout the lifecycle of the app.
 
-See [Setting login status](docs/setting_login_status.md) for more details.
+See [Setting login status](Docs/setting_login_status.md) for more details.
 
 ## Validation
 
@@ -108,7 +108,7 @@ You can see these logs in Xcode while debugging your app:
 
 ![image](https://user-images.githubusercontent.com/7719209/188751932-023b0671-5947-4563-8332-ab2eccb2e8fe.png)
 
-See [Validation](docs/validation.md) for more details.
+See [Validation](Docs/validation.md) for more details.
 
 ## Event types
 
@@ -116,12 +116,12 @@ The following event types are supported in the client. The "main four" event typ
 
 | Event type | In "main four"? | Description | Details |
 | ---------- | --------------- | ----------- | ------- |
-| autoSearch  | Yes | After performing a search using a GroupBy search API, this is used for sending details of the search to GroupBy's beacon API. The details are sent from the web browser using this event instead of being retrieved internally by GroupBy so that client tracking works correctly and aligns with the rest of the event types which must be sent from the client. | [autoSearch](docs/autoSearch.md)
-| viewProduct  | Yes | For sending details of which product (or SKU within a product) the shopper is viewing details of. | [viewProduct](docs/viewProduct.md)
-| addToCart | Yes | For sending details of which products (or SKUs within products) the shopper is adding to their cart. | [addToCart](docs/addToCart.md)
-| removeFromCart | No | For sending details of which products (or SKUs within products) the shopper is removing from their cart. | [removeFromCart](docs/removeFromCart.md)
-| order | Yes | For sending details of which products (or SKUs within products) the shopper is ordering. | [order](docs/order.md)
-| recImpression | No | For sending details of which products (or SKUs within products) the shopper is viewing on a page where you're rendering recommendations from a GroupBy recommendation API. | [recImpression](docs/recImpression.md)
+| autoSearch  | Yes | After performing a search using a GroupBy search API, this is used for sending details of the search to GroupBy's beacon API. The details are sent from the web browser using this event instead of being retrieved internally by GroupBy so that client tracking works correctly and aligns with the rest of the event types which must be sent from the client. | [autoSearch](Docs/autoSearch.md)
+| viewProduct  | Yes | For sending details of which product (or SKU within a product) the shopper is viewing details of. | [viewProduct](Docs/viewProduct.md)
+| addToCart | Yes | For sending details of which products (or SKUs within products) the shopper is adding to their cart. | [addToCart](Docs/addToCart.md)
+| removeFromCart | No | For sending details of which products (or SKUs within products) the shopper is removing from their cart. | [removeFromCart](Docs/removeFromCart.md)
+| order | Yes | For sending details of which products (or SKUs within products) the shopper is ordering. | [order](Docs/order.md)
+| recImpression | No | For sending details of which products (or SKUs within products) the shopper is viewing on a page where you're rendering recommendations from a GroupBy recommendation API. | [recImpression](Docs/recImpression.md)
 
 When at least the main four event types have been implemented, session level insights become available instead of just event level insights. For example, you can get a breakdown via GroupBy's analytics of which search terms are leading your shoppers to the products they're buying.
 
@@ -133,7 +133,7 @@ Metadata is miscellaneous key value pair data not part of each event's schema th
 
 When you include metadata in beacons you send, you extend GroupBy's analytics by enabling new dimensions.
 
-See [Metadata](docs/metadata.md) for more details.
+See [Metadata](Docs/metadata.md) for more details.
 
 ### Experiments
 
@@ -141,7 +141,7 @@ Experiments are key value pairs of data not part of each event's schema that you
 
 When you are running an A/B test, including details of the experiments in your A/B testing allows you to extend GroupBy's analytics by using your experiment as a a new dimension in analytics. For example, you can measure revenue for each bucket in your experiment.
 
-See [Experiments](docs/experiments.md) for more details.
+See [Experiments](Docs/experiments.md) for more details.
 
 ## Shopper tracking
 
