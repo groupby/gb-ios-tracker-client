@@ -7,9 +7,7 @@ This allows activities between multiple merchandiser applications and web to be 
 To create an instance of the tracker for a shopper who is logged in:
 
 ```swift
-GbTracker instance = GbTracker.getInstance("my-customer-id",
-        "my-area",
-        new Login(true, "shopper's-username"));
+let instance = GbTracker(customerId: "my-customer-id", area: "my-area", login: Login(loggedIn: true, username: "shopper's-username"))
 ```
 
 To create an instance of the tracker for a shopper who is not logged in:

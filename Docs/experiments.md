@@ -8,25 +8,25 @@ When you are running an A/B test, including details of the experiments in your A
 
 To include experiments (for A/B testing) in an event, create a list of experiments using the model classes and include them in the beacon. Note that despite the model name "Experiments", each instance represents one experiment and multiple experiments can be added to the event, one for each A/B test being conducted:
 
-```java
-List<Experiments> experiments = new ArrayList<>();
-experiments.add(new Experiments("your-experiment-id", "variant1"));
+```swift
+var experiments: [Experiments] = [];
+experiments.append(Experiments(experimentID: "your-experiment-id", experimentVariant: "variant1"))
 // or variant2, depending on which bucket you assigned the shopper to
-beacon.setExperiments(experiments);
+beacon.experiments = experiments;
 ```
 
 If you're running more than one experiment at a time, you'd include a key value pair for each experiment relevant to the beacon you're sending:
 
-```java
-List<Experiments> experiments = new ArrayList<>();
-experiments.add(new Experiments("your-first-experiment-id", "variant1"));
-experiments.add(new Experiments("your-second-experiment-id", "variant1"));
-beacon.setExperiments(experiments);
+```swift
+var experiments: [Experiments] = [];
+experiments.append(Experiments(experimentID: "your-first-experiment-id", experimentVariant: "variant1"))
+experiments.append(Experiments(experimentID: "your-second-experiment-id", experimentVariant: "variant1"))
+beacon.experiments = experiments;
 ```
 
 ## Properties
 
-| Property | Description | Java type | Required? | Min | Max | String format |
+| Property | Description | Swift type | Required? | Min | Max | String format |
 | -------- | ----------- | --------- | --------- | --- | --- | ------------- |
 | experimentId | The ID of the experiment. | `String` | Yes | 1 | 50 | n/a |
 | experimentVariant | The variant of the experiment, aka bucket. | `String` | Yes | 1 | 50 | n/a |
