@@ -6,7 +6,7 @@ This allows activities between multiple merchandiser applications and web to be 
 
 To create an instance of the tracker for a shopper who is logged in:
 
-```java
+```swift
 GbTracker instance = GbTracker.getInstance("my-customer-id",
         "my-area",
         new Login(true, "shopper's-username"));
@@ -14,20 +14,18 @@ GbTracker instance = GbTracker.getInstance("my-customer-id",
 
 To create an instance of the tracker for a shopper who is not logged in:
 
-```java
-GbTracker instance = GbTracker.getInstance("my-customer-id",
-        "my-area",
-        new Login(false, null));
+```swift
+let instance = GbTracker(customerId: "my-customer-id", area: "my-area", login: Login(loggedIn: false, username: nil))
 ```
 
 To change the shopper's status from "not logged in" to "logged in" at any point during the app's lifecycle after the instance has been created:
 
-```java
-instance.setLogin(new Login(true, "shopper's-username"));
+```swift
+instance.setLogin(login: Login(loggedIn: true, username: "shopper's-username"))
 ```
 
 To change the shopper's status from "logged in" to "not logged in" at any point during the app's lifecycle after the instance has been created:
 
-```java
-instance.setLogin(new Login(false, null));
+```swift
+instance.setLogin(login: Login(loggedIn: false, username: nil))
 ```

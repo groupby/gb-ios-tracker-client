@@ -31,8 +31,7 @@ struct ExampleSearchResults {
  * @return The search results.
  */
 func exampleSearchRequest() -> ExampleSearchResults {
-    return ExampleSearchResults(records: ["record 1", "record 2"], searchId: "c8a16b67-d3dd-49a8-b49c-68ed18febc3f"
-    )
+    return ExampleSearchResults(records: ["record 1", "record 2"], searchId: "c8a16b67-d3dd-49a8-b49c-68ed18febc3f")
 }
 ```
 
