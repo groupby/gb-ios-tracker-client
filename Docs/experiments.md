@@ -9,19 +9,19 @@ When you are running an A/B test, including details of the experiments in your A
 To include experiments (for A/B testing) in an event, create a list of experiments using the model classes and include them in the beacon. Note that despite the model name "Experiments", each instance represents one experiment and multiple experiments can be added to the event, one for each A/B test being conducted:
 
 ```swift
-var experiments: [Experiments] = [];
+var experiments: [Experiments] = []
 experiments.append(Experiments(experimentID: "your-experiment-id", experimentVariant: "variant1"))
 // or variant2, depending on which bucket you assigned the shopper to
-beacon.experiments = experiments;
+beacon.experiments = experiments
 ```
 
 If you're running more than one experiment at a time, you'd include a key value pair for each experiment relevant to the beacon you're sending:
 
 ```swift
-var experiments: [Experiments] = [];
+var experiments: [Experiments] = []
 experiments.append(Experiments(experimentID: "your-first-experiment-id", experimentVariant: "variant1"))
 experiments.append(Experiments(experimentID: "your-second-experiment-id", experimentVariant: "variant1"))
-beacon.experiments = experiments;
+beacon.experiments = experiments
 ```
 
 ## Properties

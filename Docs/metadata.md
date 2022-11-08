@@ -8,16 +8,16 @@ This data cannot improve the quality of GroupBy's search results or recommendati
 
 To include metadata alongside an event in the beacon, create a list of metadata items using the model classes and include them in the beacon:
 
-```java
-List<Metadata> metadata = new ArrayList<>();
-metadata.add(new Metadata("example-key1", "example-value1"));
-metadata.add(new Metadata("example-key2", "example-value2"));
-beacon.setMetadata(metadata);
+```swift
+var metadata: [Metadata] = []
+metadata.append(Metadata(key: "example-key1", value: "example-value1"))
+metadata.append(Metadata(key: "example-key2", value: "example-value2"))
+beacon.metadata = metadata
 ```
 
 ## Properties
 
-| Property | Description | Java type | Required? | Min | Max | String format |
+| Property | Description | Swift type | Required? | Min | Max | String format |
 | -------- | ----------- | --------- | --------- | --- | --- | ------------- |
 | key | The key of the metadata pair. | `String` | Yes | 1 | 50 | n/a |
 | value | The value of the metadata pair. | `String` | Yes | 1 | 1000 | n/a |
