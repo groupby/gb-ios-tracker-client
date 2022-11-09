@@ -1,93 +1,85 @@
 # Validation
 
-You can use the callback available for every beacon sending method to test whether the HTTP request sending the beacon had a 400 Bad Request response sent back with validation errors. In Android Studio, you can use the emulator and Logcat tab in the debugger to see these messages when they are logged with `Log.e`, `Log.i`, etc.
+You can use the callback available for every beacon sending method to test whether the HTTP request sending the beacon had a 400 Bad Request response sent back with validation errors. In Xcode, you can use the simulator and Output window in the debugger to see these messages when they are logged with `print`, `NSLog`, etc.
 
 For example, you can run the following code which sends a valid autoSearch beacon:
 
-```java
-private void sendAutoSearchEvent() {
+```swift
+func sendAutoSearchEvent() {
     // Create instance of tracker
-    String customerId = "<customer-id>";
-    String area = "<area>";
+    let customerId = "<customer-id>"
+    let area = "<area>"
     // Represents a shopper who is not logged in
-    Login login = new Login();
-    login.setLoggedIn(false);
-    login.setUsername(null);
-    GbTracker tracker = GbTracker.getInstance(customerId, area, login);
+    let login = Login(loggedIn: false, username: nil)
+    let tracker = GbTracker(customerId: customerId, area: area, login: login)
 
     // Code below assumes a tracker has been created called "tracker"
 
-    // Prepare event object
-    AutoSearchEvent event = new AutoSearchEvent();
-    event.setSearchId(UUID.fromString("167e44d4-2140-4098-91b0-1e1f0558fd8c"));
-    event.setOrigin(AutoSearchEvent.Origin.SEARCH);
+    // Prepare event for beacon
+    let event = AutoSearchEvent(origin: Origin.search, searchID: "167e44d4-2140-4098-91b0-1e1f0558fd8c")
 
-    // Prepare beacon object, including event object in it
-    AutoSearchBeacon beacon = new AutoSearchBeacon();
-    beacon.setEvent(event);
-    beacon.setMetadata(null);
-    beacon.setExperiments(null);
+    // Prepare beacon for request
+    let beacon = AutoSearchBeacon(event: event, experiments: nil, metadata: nil)
 
-    // Use beacon object to send beacon with tracker
-    tracker.sendAutoSearchEvent(beacon, new GbCallback() {
-        @Override
-        public void onFailure(GbException e, int statusCode) {
-            String msg = "Failed to send beacon: " + e.getMessage();
-            if (statusCode == 400  && e.getError() != null) {
-                List<String> validationErrors = e.getError().getJsonSchemaValidationErrors();
-                msg = msg + "; validation errors: " + validationErrors;
-                }
-            Log.e("TEST", msg, e);
+    // Use tracker instance to send beacon
+    tracker.sendAutoSearchEvent(autoSearchBeacon: beacon) { error in
+        guard error == nil else {
+            var msg = "Failed to send beacon: " + (error?.localizedDescription ?? "")
+            guard let gbError = error as? GbError else {
+                print(msg)
+                return
+            }
+            switch gbError {
+                case .error(let code, let errorDetails, let innerError):
+                    guard let errorDetails = errorDetails else {
+                        msg += "; network or other error: " +
+                    String(code) + " " + (innerError?.localizedDescription ?? "")
+                        print(msg)
+                        return
+                    }
+                    if (errorDetails.jsonSchemaValidationErrors.count > 0)
+                    {
+                        for validationError in errorDetails.jsonSchemaValidationErrors {
+                            msg += "; validation errors: " + validationError
+                        }
+                    }
+                    break
+            }
+            print(msg)
+            return
         }
 
-        @Override
-        public void onSuccess() {
-            String msg = "Sent beacon successfully.";
-            Log.i("TEST", msg);
-        }
-    });
+        let msg = "Sent beacon successfully."
+        print(msg)
+    }
 }
 ```
 
 This code can be wired up to a GUI element to send a test beacon like this:
 
-```java
-// Starting from code in starter Android Studio project
-binding.fab.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        // Calling our new method to send the test beacon
-        sendAutoSearchEvent();
-        Snackbar.make(view, "Invoked code to send beacon.", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-    }
-});
+```swift
+@IBAction func buttonTouchUpInside(_ sender: Any) {
+    sendAutoSearchEvent()
+    print("Invoked code to send beacon.")
+}
 ```
 
 You can click the GUI element in the emulator send the test beacon:
 
 ![image](https://user-images.githubusercontent.com/7719209/188751310-a25a8d5d-db57-42ae-adc4-0c68d2166035.png)
 
-When you do this, based on the code above, a snackbar will be displayed:
-
-![image](https://user-images.githubusercontent.com/7719209/188751336-f8612a36-d5cb-499f-81f6-fb9fed4d289d.png)
-
-You can filter to the string "TEST" in the Logcat tab, because this value was used as the tag in the code above when logging:
-
-![image](https://user-images.githubusercontent.com/7719209/188751550-40c5cfba-4a4b-4c6f-bf7b-29ababaf4405.png)
-
-You will see the following logged in the Logcat tab in Android Studio:
+You will see the following logged in the Output window in Xcode:
 
 ![image](https://user-images.githubusercontent.com/7719209/188750610-9fbd0853-ba75-4a81-b1b3-1e138ddd7d5b.png)
 
-You can also send an invalid beacon. For example, one where the login data is omitted. Properties in this SDK must be set to `null` explicitly. They cannot be omitted:
+You can also send an invalid beacon. For example, one where the customerId has invalid string format.
 
-```java
+```swift
+let customerId = "!invalid-customer-id!"
+let area = "area"
 // Represents a shopper who is not logged in
-Login login = new Login();
-// login.setLoggedIn(false);
-// login.setUsername(null);
-GbTracker tracker = GbTracker.getInstance(customerId, area, login);
+let login = Login(loggedIn: false, username: nil)
+let tracker = GbTracker(customerId: customerId, area: area, login: login)
 ```
 
 When you send an invalid beacon, the error logging code above will result in you seeing this in the Logcat tab in Android Studio:
@@ -97,14 +89,7 @@ When you send an invalid beacon, the error logging code above will result in you
 Error code copied here in text form too:
 
 ```
-2022-09-06 18:31:45.335 4180-4260/com.example.myapplication E/TEST: Failed to send beacon: Bad Request; validation errors:[shopper.login: Must validate one and only one schema (oneOf), shopper.login: loggedIn is required]
-    com.groupby.tracker.GbException: Bad Request
-        at com.groupby.tracker.ApiClient.handleResponse(ApiClient.java:839)
-        at com.groupby.tracker.ApiClient$1.onResponse(ApiClient.java:791)
-        at okhttp3.internal.connection.RealCall$AsyncCall.run(RealCall.kt:519)
-        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
-        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
-        at java.lang.Thread.run(Thread.java:923)
+Failed to send beacon: The operation couldn’t be completed. (GroupByTracker.GbError error 0.); validation errors: customer.id: Does not match pattern '^[a-zA-Z][a-zA-Z0-9]*$'
 ```
 
 In the real world, you should re-use your tracker instance across the lifetime of your app, not create a new instance each time you want to send a beacon. These code examples create new tracker instances each time for demonstration purposes.

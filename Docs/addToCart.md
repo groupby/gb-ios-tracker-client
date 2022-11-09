@@ -38,7 +38,7 @@ let event = AddToCartEvent(cart: cart, googleAttributionToken: "abc123")
 let beacon = AddToCartBeacon(event: event, experiments: nil, metadata: nil)
 
 // Use tracker instance to send beacon
-tracker.sendAddToCartEvent(addToCartBeacon: atcBeacon) { error in
+tracker.sendAddToCartEvent(addToCartBeacon: beacon) { error in
     guard error == nil else {
         var msg = "Failed to send beacon: " + (error?.localizedDescription ?? "")
         guard let gbError = error as? GbError else {

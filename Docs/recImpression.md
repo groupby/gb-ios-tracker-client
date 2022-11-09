@@ -21,7 +21,7 @@ let price = Price(actual: "12.34", currency: "usd", onSale: true, regular: "23.4
 let product = Product(category: "abc123", collection: "abc123", id: "abc123", price: price, sku: "abc123", title: "abc123")
 
 // Prepare list of products for event
-var products = [product]
+let products = [product]
 
 // Prepare event for beacon
 let event = RecImpressionEvent(products: products, googleAttributionToken: "abc123")
@@ -30,7 +30,7 @@ let event = RecImpressionEvent(products: products, googleAttributionToken: "abc1
 let beacon = RecImpressionBeacon(event: event, experiments: nil, metadata: nil)
 
 // Use tracker instance to send beacon
-tracker.sendRecImpressionEvent(recImpressionBeacon: atcBeacon) { error in
+tracker.sendRecImpressionEvent(recImpressionBeacon: beacon) { error in
     guard error == nil else {
         var msg = "Failed to send beacon: " + (error?.localizedDescription ?? "")
         guard let gbError = error as? GbError else {
