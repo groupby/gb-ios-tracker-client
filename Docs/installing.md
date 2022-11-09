@@ -22,4 +22,4 @@
 
 You'll know you've completed these steps properly if Xcode Jump to Definition works for the `GbTracker` class:
 
-![image](https://user-images.githubusercontent.com/7719209/188748073-c11673ff-3187-4218-9403-d765ad8ccc93.png)
+![image](https://user-images.githubusercontent.com/101598674/200875787-1e4086af-d418-4105-af40-7dbbf922aa44.png)
