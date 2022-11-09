@@ -106,7 +106,7 @@ You can test your beacon implementation for validation errors using the callback
 
 You can see these logs in Xcode while debugging your app:
 
-![image](https://user-images.githubusercontent.com/101598674/200874671-99572a52-9c5c-4e48-a889-d8794000388a.png)
+![image](https://user-images.githubusercontent.com/101598674/200877677-1ebd6f8f-e712-4b92-b6c6-c4cc4d3ae531.png)
 
 See [Validation](Docs/validation.md) for more details.
 
