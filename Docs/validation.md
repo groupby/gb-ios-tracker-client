@@ -66,11 +66,13 @@ This code can be wired up to a GUI element to send a test beacon like this:
 
 You can click the GUI element in the emulator send the test beacon:
 
-![image](https://user-images.githubusercontent.com/7719209/188751310-a25a8d5d-db57-42ae-adc4-0c68d2166035.png)
+![image](https://user-images.githubusercontent.com/101598674/200876861-15d86c36-9444-41d8-adc8-463c31e4fa5b.png)
+
 
 You will see the following logged in the Output window in Xcode:
 
-![image](https://user-images.githubusercontent.com/7719209/188750610-9fbd0853-ba75-4a81-b1b3-1e138ddd7d5b.png)
+![image](https://user-images.githubusercontent.com/101598674/200878312-f0de65dd-0315-4a41-bbd3-6f5955c606bb.png)
+
 
 You can also send an invalid beacon. For example, one where the customerId has invalid string format.
 
@@ -84,7 +86,7 @@ let tracker = GbTracker(customerId: customerId, area: area, login: login)
 
 When you send an invalid beacon, the error logging code above will result in you seeing this in the Output Window in Xcode:
 
-![image](https://user-images.githubusercontent.com/7719209/188751932-023b0671-5947-4563-8332-ab2eccb2e8fe.png)
+![image](https://user-images.githubusercontent.com/101598674/200877677-1ebd6f8f-e712-4b92-b6c6-c4cc4d3ae531.png)
 
 Error code copied here in text form too:
 
