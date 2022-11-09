@@ -82,7 +82,7 @@ let login = Login(loggedIn: false, username: nil)
 let tracker = GbTracker(customerId: customerId, area: area, login: login)
 ```
 
-When you send an invalid beacon, the error logging code above will result in you seeing this in the Logcat tab in Android Studio:
+When you send an invalid beacon, the error logging code above will result in you seeing this in the Output Window in Xcode:
 
 ![image](https://user-images.githubusercontent.com/7719209/188751932-023b0671-5947-4563-8332-ab2eccb2e8fe.png)
 

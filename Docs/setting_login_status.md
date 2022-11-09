@@ -22,7 +22,7 @@ tracker.setLogin(login: Login(loggedIn: false, username: nil))
 
 ## Properties
 
-| Property | Description | Java type | Required? | Min | Max | String format |
+| Property | Description | Swift type | Required? | Min | Max | String format |
 | -------- | ----------- | --------- | --------- | --- | --- | ------------- |
 | loggedIn | Whether the shopper is logged in. | `Bool` | Yes | n/a | n/a | n/a |
 | username | The shopper's username. Disallowed if property "loggedIn" is set to false. | `String` | If property "loggedIn" is set to true. | 1 | 50 | n/a |
