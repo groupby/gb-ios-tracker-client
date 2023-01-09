@@ -27,7 +27,7 @@ Examples of platform components enhanced by beacons:
 2. Add the dependency to your pod file
 
 ```ruby
-  pod 'GroupByTracker', '~> 1.0.1'
+  pod 'GroupByTracker', '~> 1.1.0'
 ```
 
 3. Run `pod install`
