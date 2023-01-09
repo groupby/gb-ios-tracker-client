@@ -131,4 +131,8 @@ public class GbTracker {
     public func getLogin() -> Login {
         return self.shopperTracking.login
     }
+    
+    public func getVisitorID() -> String {
+        return self.shopperTracking.visitorID
+    }
 }
