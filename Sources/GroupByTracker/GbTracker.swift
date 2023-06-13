@@ -59,23 +59,16 @@ public class GbTracker {
             result = []
         }
         
-        if (self.siteFilterMetadataValue != nil && self.siteFilterMetadataValue != "") {
-            var valueSet = false;
-            for var siteFilterMetadata in result! {
-                if (siteFilterMetadata.key == "siteFilter") {
-                    siteFilterMetadata.value = self.siteFilterMetadataValue!
-                    valueSet = true
-                }
-            }
-            
-            if (!valueSet) {
-                let siteFilterMetadata = Metadata(key: "siteFilter", value: self.siteFilterMetadataValue!)
-                result?.append(siteFilterMetadata)
+        var valueSet = false;
+        for siteFilterMetadata in result! {
+            if (siteFilterMetadata.key == "siteFilter") {
+                valueSet = true
             }
         }
-        else
-        {
-            result?.removeAll(where: { $0.key == "siteFilter" })
+        
+        if (!valueSet) {
+            let siteFilterMetadata = Metadata(key: "siteFilter", value: self.siteFilterMetadataValue ?? "")
+            result?.append(siteFilterMetadata)
         }
         
         return result
