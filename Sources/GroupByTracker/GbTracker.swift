@@ -61,13 +61,13 @@ public class GbTracker {
         
         var valueSet = false;
         for siteFilterMetadata in result! {
-            if (siteFilterMetadata.key == "siteFilter") {
+            if (siteFilterMetadata.key == "sitefilter") {
                 valueSet = true
             }
         }
         
-        if (!valueSet) {
-            let siteFilterMetadata = Metadata(key: "siteFilter", value: self.siteFilterMetadataValue ?? "")
+        if (!valueSet && self.siteFilterMetadataValue != nil) {
+            let siteFilterMetadata = Metadata(key: "sitefilter", value: self.siteFilterMetadataValue!)
             result?.append(siteFilterMetadata)
         }
         
