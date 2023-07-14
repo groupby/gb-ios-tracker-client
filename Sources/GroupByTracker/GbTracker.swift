@@ -10,6 +10,8 @@ public class GbTracker {
     private var shopperTracking: ShopperTracking
     private var nativeAppClient: NativeAppClient
     
+    private var siteFilterMetadataValue: String?
+    
     public init(customerId: String, area: String, login: Login, urlPrefixOverride: String? = nil) {
         self.customerId = customerId
         self.area = area
@@ -51,11 +53,33 @@ public class GbTracker {
         self.shopperTracking = ShopperTracking(login: login, visitorID: uuid)
     }
     
+    private func setSiteFilterMetadata(metadata: [Metadata]?) -> [Metadata]? {
+        var result = metadata
+        if (result == nil) {
+            result = []
+        }
+        
+        var valueSet = false;
+        for siteFilterMetadata in result! {
+            if (siteFilterMetadata.key == "sitefilter") {
+                valueSet = true
+            }
+        }
+        
+        if (!valueSet && self.siteFilterMetadataValue != nil) {
+            let siteFilterMetadata = Metadata(key: "sitefilter", value: self.siteFilterMetadataValue!)
+            result?.append(siteFilterMetadata)
+        }
+        
+        return result
+    }
+    
     public func sendAddToCartEvent(addToCartBeacon: AddToCartBeacon, completion: @escaping ((_ error: Error?) -> Void)) {
         addToCartBeacon.customer = self.customer
         addToCartBeacon.client = self.nativeAppClient
         addToCartBeacon.shopper = self.shopperTracking
         addToCartBeacon.time = Date()
+        addToCartBeacon.metadata = setSiteFilterMetadata(metadata: addToCartBeacon.metadata)
         GroupByAPI.addToCartPost(addToCartBeacon: addToCartBeacon, completion: completion)
         renewUUIDExpiration()
     }
@@ -65,6 +89,7 @@ public class GbTracker {
         autoSearchBeacon.client = self.nativeAppClient
         autoSearchBeacon.shopper = self.shopperTracking
         autoSearchBeacon.time = Date()
+        autoSearchBeacon.metadata = setSiteFilterMetadata(metadata: autoSearchBeacon.metadata)
         GroupByAPI.autoSearchPost(autoSearchBeacon: autoSearchBeacon, completion: completion)
         renewUUIDExpiration()
     }
@@ -74,6 +99,7 @@ public class GbTracker {
         manualSearchBeacon.client = self.nativeAppClient
         manualSearchBeacon.shopper = self.shopperTracking
         manualSearchBeacon.time = Date()
+        manualSearchBeacon.metadata = setSiteFilterMetadata(metadata: manualSearchBeacon.metadata)
         GroupByAPI.manualSearchPost(manualSearchBeacon: manualSearchBeacon, completion: completion)
         renewUUIDExpiration()
     }
@@ -83,6 +109,7 @@ public class GbTracker {
         orderBeacon.client = self.nativeAppClient
         orderBeacon.shopper = self.shopperTracking
         orderBeacon.time = Date()
+        orderBeacon.metadata = setSiteFilterMetadata(metadata: orderBeacon.metadata)
         GroupByAPI.orderPost(orderBeacon: orderBeacon, completion: completion)
         renewUUIDExpiration()
     }
@@ -92,6 +119,7 @@ public class GbTracker {
         recImpressionBeacon.client = self.nativeAppClient
         recImpressionBeacon.shopper = self.shopperTracking
         recImpressionBeacon.time = Date()
+        recImpressionBeacon.metadata = setSiteFilterMetadata(metadata: recImpressionBeacon.metadata)
         GroupByAPI.recImpressionPost(recImpressionBeacon: recImpressionBeacon, completion: completion)
         renewUUIDExpiration()
     }
@@ -101,6 +129,7 @@ public class GbTracker {
         removeFromCartBeacon.client = self.nativeAppClient
         removeFromCartBeacon.shopper = self.shopperTracking
         removeFromCartBeacon.time = Date()
+        removeFromCartBeacon.metadata = setSiteFilterMetadata(metadata: removeFromCartBeacon.metadata)
         GroupByAPI.removeFromCartPost(removeFromCartBeacon: removeFromCartBeacon, completion: completion)
         renewUUIDExpiration()
     }
@@ -110,6 +139,7 @@ public class GbTracker {
         viewProductBeacon.client = self.nativeAppClient
         viewProductBeacon.shopper = self.shopperTracking
         viewProductBeacon.time = Date()
+        viewProductBeacon.metadata = setSiteFilterMetadata(metadata: viewProductBeacon.metadata)
         GroupByAPI.viewProductPost(viewProductBeacon: viewProductBeacon, completion: completion)
         renewUUIDExpiration()
     }
@@ -134,5 +164,14 @@ public class GbTracker {
     
     public func getVisitorID() -> String {
         return self.shopperTracking.visitorID
+    }
+    
+    public func setSite(value: String?)
+    {
+        self.siteFilterMetadataValue = value
+    }
+    
+    public func getSite() -> String? {
+        return self.siteFilterMetadataValue
     }
 }
