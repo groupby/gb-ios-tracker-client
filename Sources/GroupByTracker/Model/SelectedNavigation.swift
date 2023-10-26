@@ -4,10 +4,6 @@ public struct SelectedNavigation {
     var name: String
     var value: String
     
-    public init() {
-        self.name = ""
-        self.value = ""
-    }
     
     public init(name: String, value: String) {
         self.name = name

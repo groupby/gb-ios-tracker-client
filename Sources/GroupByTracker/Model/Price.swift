@@ -17,6 +17,7 @@ public struct Price: Codable, Hashable {
     public var actual: String
     /// The ISO 4217 code of the currency for the product.
     public var currency: String
+
     public var onSale: Bool
     /// The regular price of the product (when it is not on sale).
     public var regular: String?
