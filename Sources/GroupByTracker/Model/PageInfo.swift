@@ -1,6 +1,6 @@
 import Foundation
  
-public struct  PageInfo :  Codable, Hashable  {
+public struct  PageInfo :   Codable, Hashable   {
     private var recordStart: Int64
     private var recordEnd: Int64
 

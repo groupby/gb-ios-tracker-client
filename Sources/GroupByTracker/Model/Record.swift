@@ -1,6 +1,6 @@
 import Foundation
 
-public struct  Record : NSObject, NSCoding {
+public struct  Record :  Codable, Hashable {
     private var id: String
     private var title: String
 

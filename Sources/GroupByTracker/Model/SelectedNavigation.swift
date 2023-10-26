@@ -1,6 +1,6 @@
 import Foundation
 
-public struct SelectedNavigation: Codable, Hashable {
+public struct SelectedNavigation:  Codable, Hashable  {
     var name: String
     var value: String
     

@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Search: NSObject, NSCoding {
+public struct Search:  Codable, Hashable  {
     var query: String
     var totalRecordCount: Int64
     var pageInfo: PageInfo
