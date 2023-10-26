@@ -9,7 +9,7 @@ public struct SelectedNavigation {
         self.value = ""
     }
     
-    init(name: String, value: String) {
+    public init(name: String, value: String) {
         self.name = name
         self.value = value
     }

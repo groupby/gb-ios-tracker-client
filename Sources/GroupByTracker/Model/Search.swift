@@ -7,7 +7,7 @@ public class Search: NSObject, NSCoding {
     var records: [Record]
     var selectedNavigation: [SelectedNavigation]
     
-    init(query: String, totalRecordCount: Int64, pageInfo: PageInfo, records: [Record], selectedNavigation: [SelectedNavigation]) {
+    public init(query: String, totalRecordCount: Int64, pageInfo: PageInfo, records: [Record], selectedNavigation: [SelectedNavigation]) {
         self.query = query
         self.totalRecordCount = totalRecordCount
         self.pageInfo = pageInfo
