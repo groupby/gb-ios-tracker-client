@@ -19,5 +19,4 @@ public struct SelectedNavigation {
     }
 }
 
-let navigation = SelectedNavigation(name: "refined 1", value: "ukulele")
-navigation.printDescription()
+
