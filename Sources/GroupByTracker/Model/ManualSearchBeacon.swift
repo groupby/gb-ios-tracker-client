@@ -34,7 +34,7 @@ public class ManualSearchBeacon: Codable {
     var shopper: ShopperTracking
     var time: Date
 
-    init(client: NativeAppClient, customer: Customer, event: ManualSearchEvent, experiments: [Experiments]?, metadata: [Metadata]?, shopper: ShopperTracking, time: Date) {
+    init(client: NativeAppClient, customer: Customer, event: [ManualSearchEvent]?, experiments: [Experiments]?, metadata: [Metadata]?, shopper: ShopperTracking, time: Date) {
         self.client = client
         self.customer = customer
         self.event = event
@@ -44,7 +44,7 @@ public class ManualSearchBeacon: Codable {
         self.time = time
     }
     
-    public init(event: ManualSearchEvent, experiments: [Experiments]?, metadata: [Metadata]?) {
+    public init(event: [ManualSearchEvent]?, experiments: [Experiments]?, metadata: [Metadata]?) {
         self.client = NativeAppClient()
         self.customer = Customer()
         self.event = event
@@ -77,7 +77,7 @@ extension ManualSearchBeacon {
     func with(
         client: NativeAppClient? = nil,
         customer: Customer? = nil,
-        event: ManualSearchEvent? = nil,
+        event: [ManualSearchEvent]?? = nil,
         experiments: [Experiments]?? = nil,
         metadata: [Metadata]?? = nil,
         shopper: ShopperTracking? = nil,
