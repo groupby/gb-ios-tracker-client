@@ -28,13 +28,13 @@ public class ManualSearchBeacon: Codable {
     var customer: Customer
     /// The event data. This can be any JSON object. GroupBy will provide instructions for what
     /// to serialize into this JSON object if you are instructed to implement this event.
-    public var event: [ManualSearchEvent]?
+    public var event: ManualSearchEvent
     public var experiments: [Experiments]?
     public var metadata: [Metadata]?
     var shopper: ShopperTracking
     var time: Date
 
-    init(client: NativeAppClient, customer: Customer, event: [ManualSearchEvent]?, experiments: [Experiments]?, metadata: [Metadata]?, shopper: ShopperTracking, time: Date) {
+    init(client: NativeAppClient, customer: Customer, event: ManualSearchEvent, experiments: [Experiments]?, metadata: [Metadata]?, shopper: ShopperTracking, time: Date) {
         self.client = client
         self.customer = customer
         self.event = event
@@ -44,7 +44,7 @@ public class ManualSearchBeacon: Codable {
         self.time = time
     }
     
-    public init(event: [ManualSearchEvent]?, experiments: [Experiments]?, metadata: [Metadata]?) {
+    public init(event: ManualSearchEvent, experiments: [Experiments]?, metadata: [Metadata]?) {
         self.client = NativeAppClient()
         self.customer = Customer()
         self.event = event
@@ -77,7 +77,7 @@ extension ManualSearchBeacon {
     func with(
         client: NativeAppClient? = nil,
         customer: Customer? = nil,
-        event: [ManualSearchEvent]?? = nil,
+        event: ManualSearchEvent? = nil,
         experiments: [Experiments]?? = nil,
         metadata: [Metadata]?? = nil,
         shopper: ShopperTracking? = nil,
