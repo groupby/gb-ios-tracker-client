@@ -1,6 +1,6 @@
 import Foundation
 
-public class Search: NSObject, NSCoding {
+public struct Search: NSObject, NSCoding {
     var query: String
     var totalRecordCount: Int64
     var pageInfo: PageInfo
@@ -18,6 +18,44 @@ public class Search: NSObject, NSCoding {
 
     
 
+}
+
+extension Search {
+    init(data: Data) throws {
+        self = try newJSONDecoder().decode(Search.self, from: data)
+    }
+
+    init(_ json: String, using encoding: String.Encoding = .utf8) throws {
+        guard let data = json.data(using: encoding) else {
+            throw NSError(domain: "JSONDecoding", code: 0, userInfo: nil)
+        }
+        try self.init(data: data)
+    }
+
+    init(fromURL url: URL) throws {
+        try self.init(data: try Data(contentsOf: url))
+    }
+
+    func with(
+      query: String? = nil, totalRecordCount: Int64, pageInfo: PageInfo, records: [Record], selectedNavigation: [SelectedNavigation]
+    ) -> Search {
+        return Search(
+            query: query ?? self.query,
+            totalRecordCount: totalRecordCount ?? self.totalRecordCount,
+            pageInfo: pageInfo ?? self.pageInfo,
+            records: records ?? self.records,
+            selectedNavigation: selectedNavigation ?? self.selectedNavigation
+            
+        )
+    }
+
+    func jsonData() throws -> Data {
+        return try newJSONEncoder().encode(self)
+    }
+
+    func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
+        return String(data: try self.jsonData(), encoding: encoding)
+    }
 }
 
  
