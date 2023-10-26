@@ -1,6 +1,6 @@
 import Foundation
 
-public class ManualSearchEvent: NSObject, NSCoding {
+public class ManualSearchEvent{
     var googleAttributionToken: String
     var search: Search
     
