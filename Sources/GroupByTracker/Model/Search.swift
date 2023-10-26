@@ -17,13 +17,7 @@ public class Search: NSObject, NSCoding {
     
 
     
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(query, forKey: "query")
-        aCoder.encode(totalRecordCount, forKey: "totalRecordCount")
-        aCoder.encode(pageInfo, forKey: "pageInfo")
-        aCoder.encode(records, forKey: "records")
-        aCoder.encode(selectedNavigation, forKey: "selectedNavigation")
-    }
+
 }
 
  
