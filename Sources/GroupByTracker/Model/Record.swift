@@ -1,10 +1,10 @@
 import Foundation
 
-public class Record {
+public struct  Record {
     private var id: String
     private var title: String
 
-    init(id: String, title: String) {
+    public init(id: String, title: String) {
         self.id = id
         self.title = title
     }

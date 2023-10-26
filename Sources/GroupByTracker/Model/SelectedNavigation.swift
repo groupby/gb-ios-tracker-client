@@ -1,10 +1,10 @@
 import Foundation
 
-public class SelectedNavigation {
+public struct SelectedNavigation {
     var name: String
     var value: String
     
-    init() {
+    public init() {
         self.name = ""
         self.value = ""
     }
