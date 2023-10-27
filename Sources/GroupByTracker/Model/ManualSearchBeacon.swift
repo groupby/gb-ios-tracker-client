@@ -7,7 +7,6 @@
 // The compiler will not be able to synthesize the implementation of Hashable or Equatable
 // for types that require the use of JSONAny, nor will the implementation of Hashable be
 // synthesized for types that have collections (such as arrays or dictionaries).
-
 import Foundation
 
 /// A search event (as opposed to an autoSearch event) for the Android client type (as
@@ -29,13 +28,13 @@ public class ManualSearchBeacon: Codable {
     var customer: Customer
     /// The event data. This can be any JSON object. GroupBy will provide instructions for what
     /// to serialize into this JSON object if you are instructed to implement this event.
-    public var event: [String: JSONAny]
+    public var event: ManualSearchEvent
     public var experiments: [Experiments]?
     public var metadata: [Metadata]?
     var shopper: ShopperTracking
     var time: Date
 
-    init(client: NativeAppClient, customer: Customer, event: [String: JSONAny], experiments: [Experiments]?, metadata: [Metadata]?, shopper: ShopperTracking, time: Date) {
+    init(client: NativeAppClient, customer: Customer, event: ManualSearchEvent, experiments: [Experiments]?, metadata: [Metadata]?, shopper: ShopperTracking, time: Date) {
         self.client = client
         self.customer = customer
         self.event = event
@@ -45,7 +44,7 @@ public class ManualSearchBeacon: Codable {
         self.time = time
     }
     
-    public init(event: [String: JSONAny], experiments: [Experiments]?, metadata: [Metadata]?) {
+    public init(event: ManualSearchEvent, experiments: [Experiments]?, metadata: [Metadata]?) {
         self.client = NativeAppClient()
         self.customer = Customer()
         self.event = event
@@ -78,7 +77,7 @@ extension ManualSearchBeacon {
     func with(
         client: NativeAppClient? = nil,
         customer: Customer? = nil,
-        event: [String: JSONAny]? = nil,
+        event: ManualSearchEvent? = nil,
         experiments: [Experiments]?? = nil,
         metadata: [Metadata]?? = nil,
         shopper: ShopperTracking? = nil,
