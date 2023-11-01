@@ -1,41 +1,10 @@
-# autoSearch
+# manualSearch
 
-After performing a search using a GroupBy search API, this is used for sending details of the search to GroupBy's beacon API. The details are sent from the web browser using this event instead of being retrieved internally by GroupBy so that client tracking works correctly and aligns with the rest of the event types which must be sent from the client.
-
-The search request could be a request to GroupBy's search API directly, or through a proxy.
-
-Note that in this example, it is blocking because the example data is stored in memory, but in your app, it may be non-blocking.
+Event type is used in case of:
+- Sends details of the search in case other than GroupBy search API is used.
+- For performing an A/B test between client's existing search engine and GroupBy Search.
 
 ## Example
-
-Example data, retrieved by calling a method:
-
-```swift
-struct ExampleSearchResults {
-    var records: [String]
-    var searchId: String
-
-    init(records: [String], searchId: String) {
-        self.records = records;
-        self.searchId = searchId;
-    }
-}
-```
-
-```swift
-/**
- * Example of performing an HTTP request to GroupBy's search API. In the real world, the data
- * returned would include whichever records matched the search query and a UUID v4 as the search
- * ID, which is meant to be included in autoSearch beacons sent related to the request.
- *
- * @return The search results.
- */
-func exampleSearchRequest() -> ExampleSearchResults {
-    return ExampleSearchResults(records: ["record 1", "record 2"], searchId: "c8a16b67-d3dd-49a8-b49c-68ed18febc3f")
-}
-```
-
-Sending the beacon:
 
 ```swift
 // Create instance of tracker
@@ -47,17 +16,24 @@ let tracker = GbTracker(customerId: customerId, area: area, login: login)
 
 // Code below assumes a tracker has been created called "tracker"
 
-// Perform search request
-let results = exampleSearchRequest()
-
 // Prepare event for beacon
-let event = AutoSearchEvent(origin: Origin.search, searchID: results.searchId)
+let pageInfo = PageInfo(recordStart:1, recordEnd: 2)
+let navigation = SelectedNavigation(name: "naviname", value: "navival")
+let record1 = Record(id: "id1", title: "title1")
+let record2 = Record(id: "id2", title: "title2")
+let search = Search(query: "Download more RAM",
+                    totalRecordCount: 1,
+                    pageInfo: pageInfo,
+                    records: [record1, record2],
+                    selectedNavigation: [navigation])
+
+let event = ManualSearchEvent(googleAttributionToken: "token_val", search: search)
 
 // Prepare beacon for request
-let beacon = AutoSearchBeacon(event: event, experiments: nil, metadata: nil)
+let manualSearchBeacon = ManualSearchBeacon(event: event, experiments: nil, metadata: nil)
 
 // Use tracker instance to send beacon
-tracker.sendAutoSearchEvent(autoSearchBeacon: beacon) { error in
+tracker.sendManualSearchEvent(manualSearchBeacon: beacon) { error in
     guard error == nil else {
         var msg = "Failed to send beacon: " + (error?.localizedDescription ?? "")
         guard let gbError = error as? GbError else {
@@ -93,20 +69,52 @@ In the real world, you should re-use your tracker instance across the lifetime o
 
 ## Properties
 
-AutoSearchEvent:
+Record:
 
-| Property | Description | Swift type | Required? | Min | Max | String format |
-| -------- | ----------- | --------- | --------- | --- | --- | ------------- |
-| searchId | The ID of the search performed with the GroupBy search engine API. This ID is returned in each HTTP response from the API and must be included in this event. | `String` | Yes | n/a | n/a | n/a |
-| origin | The context in which the search was performed. Acceptable values are \"search\" (used when a search query is used with the API), \"sayt\" (used when GroupBy's SAYT search engine API is used instead of its regular search engine API, for search-as-you-type use cases), and \"navigation\" (used when no search query is used because the search engine is being used to power a PLP consisting of a category of products, often after a shopper has selected a facet). | `Origin` enum value | Yes | n/a | n/a | n/a |
+| Property | Description       | Java type | Required? | Min | Max | String format |
+|----------|-------------------|-----------|-----------| --- |-----| ------------- |
+| id       | The product ID    | `String`  | Yes       | 1 | n/a | n/a |
+| title    | The product title | `String`  | No        | n/a | n/a | n/a |
 
-AutoSearchBeacon:
+PageInfo:
 
-| Property | Description | Swift type | Required? | Min | Max | String format |
-| -------- | ----------- | --------- | --------- | --- | --- | ------------- |
-| event | The event data for the beacon. | `AutoSearchEvent` | Yes | n/a | n/a | n/a |
-| experiments | The A/B testing experiments related to the event. | `[Experiments]` | No | 1 | 20 | n/a |
-| metadata | The metadata for the event. | `[Metadata]` | No | 1 | 20 | n/a |
+| Property    | Description                                        | Java type | Required? | Min | Max | String format |
+|-------------|----------------------------------------------------|-----------|-----------|-----|-----| ------------- |
+| recordStart | The first record in the search results (1-indexed) | `Long`    | Yes       | n/a | n/a | n/a |
+| recordEnd   | The last record in the search results (1-indexed)  | `Long`    | Yes        | n/a | n/a | n/a |
+
+Selected navigation:
+
+| Property | Description                                                       | Java type | Required? | Min | Max | String format |
+|----------|-------------------------------------------------------------------|-----------|-----------|-----|-----| ------------- |
+| name     | The navigation field address                                      | `String`  | Yes       | n/a | n/a | n/a |
+| value    | The value that was applied as a filter for the Search navigation  | `String`  | Yes        | n/a | n/a | n/a |
+
+
+Search:
+
+| Property           | Description                                                                                                                                                                                                                  | Java type                  | Required? | Min | Max | String format |
+|--------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------|-----------| --- | --- | ------------- |
+| query              | The search query or term for the event. Use an empty string if it was a browse event that had no search query or term.                                                                                                       | `String`                   | Yes       | n/a | n/a | n/a |
+| totalRecordCount   | The total number of products in the search results                                                                                                                                                                           | `Long`                     | Yes       | n/a | n/a | n/a |
+| records            | The results in a record set. Every item in the records property is an object with one property.                                                                                                                              | `List<Record>`             | Yes       | n/a | n/a | n/a |
+| pageInfo           | The index number of the first and last record (1-indexed) within the response. If the page displays more records per page than were in the search results, use the number of records in the search results for this property | `PageInfo`                 | Yes       | n/a | n/a | n/a |
+| selectedNavigation | The values that were refined. Required if applicable to the values of what refinements were selected.                                                                                                                        | `List<SelectedNavigation>` | No        | n/a | n/a | n/a |
+
+ManualSearchEvent:
+
+| Property               | Description | Java type | Required? | Min | Max | String format |
+|------------------------| ----------- |-----------| --------- |-----|-----| ------------- |
+| googleAttributionToken | The Google attribution token as described in Google Cloud Platform's [documentation for Cloud Retail Solutions](https://cloud.google.com/retail/docs/attribution-tokens). Instructions for implementing this are evolving over time. If you use GroupBy's Google-powered platform, reach out to your Customer Success rep to find out whether you need to implement this property and if so, how you should do it. | `String`  | No | n/a | n/a | n/a |
+| search                 | The cart related to the event. | `Search`  | Yes | n/a | n/a | n/a |
+
+ManualSearchBeacon:
+
+| Property | Description | Java type          | Required? | Min | Max | String format |
+| -------- | ----------- |--------------------| --------- |-----| --- | ------------- |
+| event | The event data for the beacon. | `ManualSearchEvent` | Yes | n/a | n/a | n/a |
+| experiments | The A/B testing experiments related to the event | `List<Experiments>` | No | 1   | 20 | n/a |
+| metadata | The metadata for the event. | `List<Metadata>`   | No | n/a | 20 | n/a |
 
 ## Additional schemas
 
