@@ -20,6 +20,10 @@ public struct ViewProductEvent: Codable, Hashable {
         self.googleAttributionToken = googleAttributionToken
         self.product = product
     }
+    
+    public init(product: Product) {
+        self.product = product
+    }
 }
 
 // MARK: ViewProductEvent convenience initializers and mutators

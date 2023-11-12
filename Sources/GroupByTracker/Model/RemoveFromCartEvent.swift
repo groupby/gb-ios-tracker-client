@@ -20,6 +20,10 @@ public struct RemoveFromCartEvent: Codable, Hashable {
         self.cart = cart
         self.googleAttributionToken = googleAttributionToken
     }
+    
+    public init(cart: Cart) {
+        self.cart = cart
+    }
 }
 
 // MARK: RemoveFromCartEvent convenience initializers and mutators

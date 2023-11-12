@@ -20,6 +20,10 @@ public struct OrderEvent: Codable, Hashable {
         self.cart = cart
         self.googleAttributionToken = googleAttributionToken
     }
+    
+    public init(cart: Cart) {
+        self.cart = cart
+    }
 }
 
 // MARK: OrderEvent convenience initializers and mutators
