@@ -95,20 +95,26 @@ final class GroupByTrackerTests: XCTestCase {
     
     func initTracker() -> GbTracker {
         let tracker = GbTracker(
-            customerId: getEnvWithDefault(envName: "CUSTOMER_ID", defaultVal: "test")!,
-            area: getEnvWithDefault(envName: "CUSTOMER_AREA", defaultVal: "test")!,
+            customerId: getEnvRequired(envName: "CUSTOMER_ID"),
+            area: getEnvRequired(envName: "CUSTOMER_AREA"),
             login: Login(loggedIn: false, username: nil),
-            urlPrefixOverride: getEnvWithDefault(envName: "URL_OVERRIDE", defaultVal: nil))
+            urlPrefixOverride: getEnv(envName: "URL_OVERRIDE"))
         
         print("Initialized tracker, customer [\(tracker.customerId)], area [\(tracker.area)], url override: [\(String(describing: tracker.urlPrefixOverride))]")
         return tracker
     }
     
-    func getEnvWithDefault(envName: String, defaultVal : String?) -> String? {
+    func getEnvRequired(envName: String) -> String {
+        let envVar = getEnv(envName: envName)
+        if envVar != nil { return envVar! }
+        fatalError("No env variable [\(envName)] is defined")
+    }
+    
+    func getEnv(envName: String) -> String? {
         if let value = ProcessInfo.processInfo.environment[envName] {
             return value
         }
-        return defaultVal
+        return nil
     }
     
     func testCallback(expectation :XCTestExpectation) -> ((_ error: Error?) -> Void){
