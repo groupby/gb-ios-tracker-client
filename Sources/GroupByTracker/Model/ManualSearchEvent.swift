@@ -1,11 +1,15 @@
 import Foundation
 
 public struct ManualSearchEvent : Codable, Hashable {
-    var googleAttributionToken: String
+    var googleAttributionToken: String?
     var search: Search
     
-    public init(googleAttributionToken: String, search: Search) {
+    public init(googleAttributionToken: String?, search: Search) {
         self.googleAttributionToken = googleAttributionToken
+        self.search = search
+    }
+    
+    public init(search: Search) {
         self.search = search
     }
 
