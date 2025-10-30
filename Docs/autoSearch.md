@@ -51,7 +51,10 @@ let tracker = GbTracker(customerId: customerId, area: area, login: login)
 let results = exampleSearchRequest()
 
 // Prepare event for beacon
+// For standard search origin:
 let event = AutoSearchEvent(origin: Origin.search, searchID: results.searchId)
+// For R2 Conversational Commerce origin:
+// let event = AutoSearchEvent(origin: Origin.conversation, searchID: results.searchId)
 
 // Prepare beacon for request
 let beacon = AutoSearchBeacon(event: event, experiments: nil, metadata: nil)
@@ -98,7 +101,7 @@ AutoSearchEvent:
 | Property | Description | Swift type | Required? | Min | Max | String format |
 | -------- | ----------- | --------- | --------- | --- | --- | ------------- |
 | searchId | The ID of the search performed with the GroupBy search engine API. This ID is returned in each HTTP response from the API and must be included in this event. | `String` | Yes | n/a | n/a | n/a |
-| origin | The context in which the search was performed. Acceptable values are \"search\" (used when a search query is used with the API), \"sayt\" (used when GroupBy's SAYT search engine API is used instead of its regular search engine API, for search-as-you-type use cases), and \"navigation\" (used when no search query is used because the search engine is being used to power a PLP consisting of a category of products, often after a shopper has selected a facet). | `Origin` enum value | Yes | n/a | n/a | n/a |
+| origin | The context in which the search was performed. Acceptable values are \"search\" (used when a search query is used with the API), \"sayt\" (used when GroupBy's SAYT search engine API is used instead of its regular search engine API, for search-as-you-type use cases), \"navigation\" (used when no search query is used because the search engine is being used to power a PLP consisting of a category of products, often after a shopper has selected a facet), and \"conversation\" (used when the search originated from a Conversational Commerce interaction). | `Origin` enum value | Yes | n/a | n/a | n/a |
 
 AutoSearchBeacon:
 

@@ -16,7 +16,10 @@ func sendAutoSearchEvent() {
     // Code below assumes a tracker has been created called "tracker"
 
     // Prepare event for beacon
+    // For standard search origin:
     let event = AutoSearchEvent(origin: Origin.search, searchID: "167e44d4-2140-4098-91b0-1e1f0558fd8c")
+    // For R2 Conversational Commerce origin use:
+    // let event = AutoSearchEvent(origin: Origin.conversation, searchID: "167e44d4-2140-4098-91b0-1e1f0558fd8c")
 
     // Prepare beacon for request
     let beacon = AutoSearchBeacon(event: event, experiments: nil, metadata: nil)

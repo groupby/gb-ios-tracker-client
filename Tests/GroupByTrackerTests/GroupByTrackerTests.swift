@@ -3,6 +3,15 @@ import XCTest
 
 final class GroupByTrackerTests: XCTestCase {
     
+    func testOriginConversationJSONEncoding() throws {
+        let sid = UUID().uuidString.lowercased()
+        let event = AutoSearchEvent(origin: Origin.conversation, searchID: sid)
+        let data = try event.jsonData()
+        let json = String(data: data, encoding: .utf8) ?? ""
+        XCTAssertTrue(json.contains("\"origin\":\"conversation\""), "origin should encode as 'conversation' in JSON")
+        XCTAssertTrue(json.contains("\"searchId\":"), "searchId key should be present")
+    }
+
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct

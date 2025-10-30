@@ -125,6 +125,36 @@ The following event types are supported in the client. The "main four" event typ
 
 When at least the main four event types have been implemented, session level insights become available instead of just event level insights. For example, you can get a breakdown via GroupBy's analytics of which search terms are leading your shoppers to the products they're buying.
 
+## Conversational Commerce origin
+
+R2 Conversational Commerce beacons must set the autoSearch event origin to `conversation` so analytics can differentiate these interactions from other origins like `search`, `sayt`, and `navigation`.
+
+- Swift example:
+
+```swift
+let event = AutoSearchEvent(origin: .conversation, searchID: "<response_id>")
+let beacon = AutoSearchBeacon(event: event, experiments: nil, metadata: nil)
+tracker.sendAutoSearchEvent(autoSearchBeacon: beacon, completion: { _ in })
+```
+
+- Example JSON payload fragment (what the SDK encodes):
+
+```json
+{
+  "event": {
+    "origin": "conversation",
+    "searchId": "<response_id>"
+  }
+}
+```
+
+QA:
+- Example of an autoSearch event with origin.conversation=true? See JSON above; the flag is represented by `"origin":"conversation"` in the payload. 
+- Do we need to send a search request or a search event with origin.conversation=true for autoSearch to work? Only the autoSearch event needs `origin` set to `conversation`; you do not need to send a separate directSearch from the app (that is handled by the Conversational API team). Ensure `searchId`/`response_id` is populated.
+- Will the change inside gb-ios-tracker be huge to support this? No — the SDK now includes a new `Origin.conversation` enum case; update your call sites to pass `.conversation` when sending autoSearch for conversational responses.
+
+See [autoSearch docs](Docs/autoSearch.md) for details and examples.
+
 ## Including metadata and experiments in events
 
 ### Metadata
