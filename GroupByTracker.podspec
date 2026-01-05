@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
     s.name             = 'GroupByTracker'
     s.version          = '1.5.0'
-    s.summary          = 'GroupBy Tracker Client for iOS'
+    s.summary          = 'Rezolve Tracker Client for iOS'
     s.homepage         = 'https://github.com/groupby/gb-ios-tracker-client.git'
     s.readme           = 'https://raw.githubusercontent.com/groupby/gb-ios-tracker-client/main/README.md'
     s.license          = { :type => 'MIT', :file => 'LICENSE.md' }
